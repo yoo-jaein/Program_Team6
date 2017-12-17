@@ -15,17 +15,20 @@ int get_response(char*, int);
 int get_ok_char();
 void set_cr_noecho_mode();
 void set_nodelay_mode();
-
+void tty_mode(int);
 
 int coin_input()
 {
 	int	response;
+
+	tty_mode(0);				/* save current mode	*/
 
 	set_cr_noecho_mode();			/* set -icanon, -echo	*/
 	set_nodelay_mode();			/* noinput => EOF	*/
 
 	response = get_response(ASK, TRIES);	/* get some answer	*/
 
+	tty_mode(1);				/* restore orig mode	*/
 
 	return response;
 
@@ -98,3 +101,19 @@ void set_nodelay_mode()
 
 
 
+
+void tty_mode(int how)
+{
+	static struct termios original_mode;
+	static int            original_flags;
+
+	if ( how == 0 ){
+		tcgetattr(0, &original_mode);
+		original_flags = fcntl(0, F_GETFL);
+	}
+
+	else {
+		tcsetattr(0, TCSANOW, &original_mode); 
+		fcntl( 0, F_SETFL, original_flags);	
+	}
+}

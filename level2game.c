@@ -80,10 +80,10 @@ int main(int argc, char* argv[])
 
 	double time_diff_ms;
 
-	if(strcmp(argv[1], "1000")==0)
-	{
-		timeval = 1000;
-	}
+//	if(strcmp(argv[1], "1000")==0)
+//	{
+//		timeval = 1000;
+//	}
 
 
 	set_up();
@@ -232,7 +232,7 @@ void set_up()
 
 	signal( SIGALRM, ball_move );
 
-	set_ticker(timeval);
+//	set_ticker(timeval);
 	set_ticker(1000/TICKS_PER_SEC);
 }
 

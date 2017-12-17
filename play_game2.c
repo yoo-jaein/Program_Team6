@@ -45,7 +45,16 @@ int play_game2()
 				sleep(2);
 				coin_status = coin_input();
 
-				
+				if(coin_status==0)
+				{
+					printf("코인을 넣으셨습니다.\n");
+					sleep(2);
+					life = 3;
+					printf("현재 남은 목숨은 %d개 입니다.\n", life);
+					// 부활!!!!!!!!!!!!!!!
+					sleep(2);
+					return 1;
+				}
 				else
 				{
 					return -1;
